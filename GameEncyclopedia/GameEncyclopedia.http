@@ -1,0 +1,6 @@
+@GameEncyclopedia_HostAddress = http://localhost:5095
+
+GET {{GameEncyclopedia_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
