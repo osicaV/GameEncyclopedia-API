@@ -26,5 +26,21 @@ namespace GameEncyclopedia.Controllers {
 
             return Ok(monsters);
         }
+
+        [HttpGet("id:int")]
+        public async Task<ActionResult<List<MonsterResponse>>> GetAllMonsters(int id, CancellationToken ct) {
+            var monster = await _db.Monsters
+                .AsNoTracking()
+                .Where(m => m.Id == id)
+                .Select(m => new MonsterResponse {
+                    Id = m.Id,
+                    Name = m.Name,
+                })
+                .FirstOrDefaultAsync(ct);
+
+            if (monster is null) return NotFound();
+
+            return Ok(monster);
+        }
     }
 }
