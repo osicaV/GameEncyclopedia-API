@@ -46,6 +46,13 @@ namespace GameEncyclopedia.Controllers {
 
         [HttpPost]
         public async Task<ActionResult<MonsterResponse>> Create(CreateMonsterRequest request) {
+
+            var name = request.Name.Trim();
+
+            var exists = await _db.Monsters.AsNoTracking().AnyAsync(m => m.Name == name);
+
+            if (exists) return Conflict(new { message = "Monster with this name already exists."});
+
             var monster = new Monster {
                 Name = request.Name.Trim()
             };
