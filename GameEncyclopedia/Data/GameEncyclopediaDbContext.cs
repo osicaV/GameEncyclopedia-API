@@ -8,5 +8,16 @@ namespace GameEncyclopedia.Data {
         }
 
         public DbSet<Monster> Monsters => Set<Monster>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Monster>(e => {
+                e.Property(m => m.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+                e.HasIndex(m => m.Name)
+                .IsUnique();
+            });
+        }
     }
 }
