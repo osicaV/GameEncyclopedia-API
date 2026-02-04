@@ -54,7 +54,7 @@ namespace GameEncyclopedia.Controllers {
             if (exists) return Conflict(new { message = "Monster with this name already exists."});
 
             var monster = new Monster {
-                Name = request.Name.Trim()
+                Name = name
             };
 
             _db.Monsters.Add(monster);
